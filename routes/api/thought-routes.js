@@ -18,9 +18,9 @@ router
 
 
 
-// /api/Thoughts/
+// /api/Thoughts/<userId>
 router
-.route('/')
+.route('/:userId')
 .post(addThought);
 
 // /api/Thoughts/<userId>

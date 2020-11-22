@@ -2,7 +2,7 @@ const { Thought, User } = require('../models');
 
 const thoughtController = {
     // get all Users
-    getAllThought(req, res) {
+ getAllThought(req, res) {
       Thought.find({})
       .select('-__v')
       .sort({ _id: -1 })
@@ -35,6 +35,13 @@ getThoughtById({ params }, res) {
  addThought({ params, body }, res) {
     
     Thought.create(body)
+    .then(({ _id }) => {
+      return User.findOneAndUpdate(
+        { _id: params.userId },
+        { $push: { thoughts: _id } },
+        { new: true }
+      );
+    })
      
       .then(dbUserData => {
         if (!dbUserData) {
@@ -80,12 +87,12 @@ addReaction({ params, body }, res) {
       { $push: { reactions: body } },
       { new: true,runValidators: true }
     )
-     .then(dbUserData => {
-        if (!dbUserData) {
-          res.status(404).json({ message: 'No User found with this id!' });
+     .then(dbThoughtData => {
+        if (!dbThoughtData) {
+          res.status(404).json({ message: 'No Thought found with this id!' });
           return;
         }
-        res.json(dbUserData);
+        res.json(dbThoughtData);
       })
       .catch(err => res.json(err));
 },
@@ -95,9 +102,9 @@ addReaction({ params, body }, res) {
     Thought.findOneAndUpdate(
       { _id: params.thoughtId },
       { $pull: { reactions: { reactionId: params.reactionId } } },
-      { new: true }
+      { new: true,upsert:true,remove:true }
     )
-      .then(dbUserData => res.json(dbUserData))
+      .then(dbThoughtData => res.json(dbThoughtData))
       .catch(err => res.json(err));
   }
 
@@ -105,6 +112,8 @@ addReaction({ params, body }, res) {
 };
 
 module.exports = thoughtController;
+
+
 
 // /api/thoughts/:thoughtId/reactions
 
