@@ -102,21 +102,16 @@ addReaction({ params, body }, res) {
     Thought.findOneAndUpdate(
       { _id: params.thoughtId },
       { $pull: { reactions: { reactionId: params.reactionId } } },
-      { new: true,upsert:true,remove:true }
+      { new: true ,runValidators:true}
     )
       .then(dbThoughtData => res.json(dbThoughtData))
       .catch(err => res.json(err));
   }
 
-  
 };
 
 module.exports = thoughtController;
 
 
 
-// /api/thoughts/:thoughtId/reactions
 
-// POST to create a reaction stored in a single thought's reactions array field
-
-// DELETE to pull and remove a reaction by the reaction's reactionId value
