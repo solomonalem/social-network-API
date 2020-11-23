@@ -8,7 +8,7 @@ https://drive.google.com/file/d/1yc__G4vGlJXjhD8lPxte3bsLsdprvxV5/view -->
 
 ## Description
 
-Its Socialmedia - backend application built with NoSQL database which is Mongodb using Mongoose ODM (Object Data Modeling). It follows all the necessary procedures of RESTful APIs.It allows all the CRUD operations for every Collection in the database.It has Users,Thought and Reaction Collections in which user has the ability to create thoughts and react in any thought posted,In addition users have list of friends anf thoughts they made.
+Its Socialmedia - backend application built with NoSQL database which is Mongodb using Mongoose ODM (object-document mapping). It follows all the necessary procedures of RESTful APIs.It allows all the CRUD operations for every Collection in the database.It has Users,Thought and Reaction Collections in which user has the ability to create thoughts and react in any thought posted,In addition users have list of friends anf thoughts they made.
 
 ## Table of Contents
 
